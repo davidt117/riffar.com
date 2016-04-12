@@ -1,0 +1,35 @@
+{% extends "site/base/index.html" %}
+
+{% load static widget_tweaks %}
+
+{% block title %}Winning Numbers{% endblock %}
+
+{% block content %}
+    <div class="ticket-data-wrapper">
+        <div class="page-header">
+            <h3>Winning Numbers Report</h3>
+        </div>
+        <form method="GET" class="form-inline">
+            <div class="form-group">
+                {{ form.date_from|add_class:"form-control date"|attr:"placeholder:From Date"|attr:"autocomplete:off" }}
+            </div>
+            <div class="form-group">
+                {{ form.date_to|add_class:"form-control date"|attr:"placeholder:To Date"|attr:"autocomplete:off" }}
+            </div>
+            <input type="submit" name="get_report" value="Get Report" class="btn btn-primary btn-block"/>
+        </form>
+        <hr>
+        {% if show_report %}
+            {% if total_report %}
+                <p><strong>Total played:</strong> {{ total_report.total_played|floatformat:"2" }}</p>
+                <p><strong>Total commissions:</strong> {{ total_report.total_commissions|floatformat:"2" }}</p>
+                <p><strong>Total won:</strong> {{ total_report.total_won|floatformat:"2" }}</p>
+                <p><strong>Total earnings:</strong> {{ total_report.total_net|floatformat:"2" }}</p>
+            {% else %}
+                <div class="alert alert-info">No elements for report</div>
+            {% endif %}
+        {% else %}
+            <div class="alert alert-info">Select dates for report</div>
+        {% endif %}
+    </div>
+{% endblock %}

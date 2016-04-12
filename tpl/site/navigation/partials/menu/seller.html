@@ -1,0 +1,78 @@
+<ul class="nav navbar-nav navbar-right">
+    {% if request.user.is_authenticated %}
+        <li class="nav-orange">
+            <a href="{% url 'homepage' %}">Home</a>
+        </li>
+        <li class="dropdown nav-violet">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
+               aria-haspopup="true" aria-expanded="false">
+                Lottery <span class="caret"></span>
+            </a>
+            <ul class="dropdown-menu">
+                <li>
+                    <a href="{% url 'homepage' %}">
+                        Play
+                    </a>
+                </li>
+                <li>
+                    <a href="{% url 'ticket:index' %}">
+                        Show Plays
+                    </a>
+                </li>
+                <li>
+                    <a href="https://magic.import.io/?site=http:%2F%2Fwww.loteriasdominicanas.com"
+                       target="_blank">
+                        Draw
+                    </a>
+                </li>
+            </ul>
+        </li>
+        <li class="nav-green">
+            <a href="{% url 'ticket:index' %}">Tickets</a>
+        </li>
+        <li class="dropdown nav-gray">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
+               aria-haspopup="true" aria-expanded="false">
+                Sales <span class="caret"></span>
+            </a>
+            <ul class="dropdown-menu">
+                <li>
+                    <a href="{% url 'sales:report_total' %}">Total</a>
+                </li>
+                <li>
+                    <a href="{% url 'sales:report_detail' %}">Detail</a>
+                </li>
+            </ul>
+        </li>
+        <li class="dropdown nav-blue">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
+               aria-haspopup="true" aria-expanded="false">
+                Settings <span class="caret"></span>
+            </a>
+            <ul class="dropdown-menu">
+                <li>
+                    <a href="#">
+                        Messages <span class="badge pull-right">0</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="{% url 'change_password' %}">Change Password</a>
+                </li>
+                <li>
+                    <a href="{% url 'logout' %}">Logout</a>
+                </li>
+            </ul>
+        </li>
+    {% else %}
+        <li>
+            <a href="{% url 'login' %}">
+                Login
+            </a>
+        </li>
+        <li>
+            <a href="{% url 'registration' %}">
+                Sign Up
+            </a>
+        </li>
+    {% endif %}
+</ul>

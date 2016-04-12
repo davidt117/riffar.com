@@ -1,0 +1,35 @@
+{% extends "site/base/index.html" %}
+
+{% load static widget_tweaks %}
+
+{% block title %}Winning Numbers{% endblock %}
+
+{% block content %}
+    <div class="ticket-data-wrapper">
+        <div class="page-header">
+            <h3>Winning Numbers</h3>
+        </div>
+
+        <table class="table table-bordered">
+            <tr>
+                <th>Lottery</th>
+                <th style="width: 140px;"></th>
+            </tr>
+            {% for object in object_list %}
+                <tr>
+                    <td>
+                        {{ object.name }}
+                    </td>
+                    <td class="text-center">
+                        <div style="white-space: nowrap">
+                            <a href="{% url 'lottery:lottery_winning_numbers' pk=object.pk %}"
+                               class="btn btn-xs btn-success tt" data-title="Lottery Winning Numbers">
+                                <i class="fa fa-star"></i> Input Winning Numbers
+                            </a>
+                        </div>
+                    </td>
+                </tr>
+            {% endfor %}
+        </table>
+    </div>
+{% endblock %}

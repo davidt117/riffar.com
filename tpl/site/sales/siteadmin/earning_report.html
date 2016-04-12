@@ -1,0 +1,137 @@
+{% extends "site/base/index.html" %}
+
+{% load static widget_tweaks %}
+
+{% block title %}Winning Numbers{% endblock %}
+
+{% block inline_js %}
+    <script>
+        $(function () {
+            var toggleDetails = $('.btn-toggle-details'),
+                    toggleSummary = $('.btn-toggle-summary');
+            toggleDetails.on('click', function (e) {
+                e.preventDefault();
+                var earningReportWrapper = $(this).parents('.earning-report');
+                $('.summary-report', earningReportWrapper).hide();
+                $('.detail-report', earningReportWrapper).show();
+            });
+
+            toggleSummary.on('click', function (e) {
+                e.preventDefault();
+                var earningReportWrapper = $(this).parents('.earning-report');
+                $('.summary-report', earningReportWrapper).show();
+                $('.detail-report', earningReportWrapper).hide();
+            });
+        });
+    </script>
+{% endblock %}
+
+{% block content %}
+    <div class="ticket-data-wrapper">
+        <div class="page-header">
+            <h3>Earnings Report</h3>
+        </div>
+        <form method="GET" class="form-inline">
+            <div class="form-group">
+                {{ form.date|add_class:"form-control date"|attr:"placeholder:Date of report"|attr:"autocomplete:off" }}
+            </div>
+            <input type="submit" name="get_report" value="Get Report" class="btn btn-primary btn-block"/>
+        </form>
+        <hr>
+        {% if reports %}
+            {% for report in reports %}
+                <div class="earning-report">
+                    <h4>{{ report.lottery.name }}</h4>
+
+                    <div class="summary-report">
+                        <table class="table">
+                            <tr>
+                                <th style="width: 50%" class="text-right">Total sold</th>
+                                <td>{{ report.report.total_sold|floatformat:2 }}</td>
+                            </tr>
+                            <tr>
+                                <th style="width: 50%" class="text-right">Commissions</th>
+                                <td>{{ report.report.total_commissions|floatformat:2 }}</td>
+                            </tr>
+                            <tr>
+                                <th style="width: 50%" class="text-right">Won</th>
+                                <td>{{ report.report.total_won|floatformat:2 }}</td>
+                            </tr>
+                            <tr>
+                                <th style="width: 50%" class="text-right">Net {{ report.lottery.name }}</th>
+                                <td>{{ report.report.total_net|floatformat:2 }}</td>
+                            </tr>
+                        </table>
+
+                        <a href="#" class="btn btn-default btn-block btn-toggle-details">
+                            Show Details
+                        </a>
+                    </div>
+
+                    <div class="detail-report" style="display: none">
+                        <table class="table">
+                            <tr>
+                                <th></th>
+                                <th>Number</th>
+                                <th>Amount</th>
+                            </tr>
+                            <tr>
+                                <th class="text-right">Total sold</th>
+                                <td></td>
+                                <td>{{ report.report.total_sold|floatformat:2 }}</td>
+                            </tr>
+                            {% for commission in report.report.seller_commissions.items %}
+                                <tr>
+                                    <th style="width: 50%" class="text-right">Comm. {{ commission.0 }}</th>
+                                    <td></td>
+                                    <td>-{{ commission.1|floatformat:2 }}</td>
+                                </tr>
+                            {% endfor %}
+                            {% for amount in report.report.win_amounts.items %}
+                                {% if amount.0 %}
+                                    <tr>
+                                        <th style="width: 50%" class="text-right">Won {{ amount.0 }}</th>
+                                        <td>{{ amount.1.numbers|join:', ' }}</td>
+                                        <td>-{{ amount.1.amount|floatformat:2 }}</td>
+                                    </tr>
+                                {% endif %}
+                            {% endfor %}
+                            <tr>
+                                <th class="text-right">Net {{ report.lottery.name }}</th>
+                                <td></td>
+                                <td>{{ report.report.total_net|floatformat:2 }}</td>
+                            </tr>
+                        </table>
+                        <a href="#" class="btn btn-default btn-block btn-toggle-summary">
+                            Show Summary
+                        </a>
+                    </div>
+                </div>
+            {% endfor %}
+            <hr>
+            <h4>Total:</h4>
+            <table class="table">
+                <tr>
+                    <th>Total sold</th>
+                    <td>{{ totals.total_sold|floatformat:2 }}</td>
+                </tr>
+                <tr>
+                    <th>Total commissions</th>
+                    <td>{{ totals.total_commissions|floatformat:2 }}</td>
+                </tr>
+                <tr>
+                    <th>Total won</th>
+                    <td>{{ totals.total_won|floatformat:2 }}</td>
+                </tr>
+                <tr>
+                    <th>Total net</th>
+                    <td>{{ totals.total_net|floatformat:2 }}</td>
+                </tr>
+            </table>
+        {% else %}
+            <div class="alert alert-info">
+                No report found for specified date.
+            </div>
+        {% endif %}
+    </div>
+{% endblock %}

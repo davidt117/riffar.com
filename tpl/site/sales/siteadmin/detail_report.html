@@ -1,0 +1,92 @@
+{% extends "site/base/index.html" %}
+
+{% load static widget_tweaks add_get_parameter list %}
+
+{% block title %}Total Sales{% endblock %}
+
+{% block content %}
+    <div class="ticket-data-wrapper">
+        <form method="GET" class="form-inline">
+            <div class="form-group">
+                {{ form.date_from|add_class:"form-control date"|attr:"placeholder:From Date"|attr:"autocomplete:off" }}
+            </div>
+            <div class="form-group">
+                {{ form.date_to|add_class:"form-control date"|attr:"placeholder:To Date"|attr:"autocomplete:off" }}
+            </div>
+            <div class="form-group">
+                {{ form.seller|add_class:"form-control selectized" }}
+            </div>
+            <input type="submit" name="get_report" value="Get Report" class="btn btn-primary btn-block"/>
+        </form>
+        <hr>
+        {% if show_results %}
+            {% if object_list %}
+                {% if not show_detailed_report %}
+                    <br/>
+                    <table class="table table-bordered">
+                        <tr>
+                            <th>Seller</th>
+                            <th>Total sales amount</th>
+                            <th></th>
+                        </tr>
+                        {% for seller in sellers %}
+                            <tr>
+                                <td>
+                                    {{ seller.get_full_name }} ({{ seller.email }})
+                                </td>
+                                <td>
+                                    ${{ amounts|lookup:forloop.counter0|floatformat:2 }}
+                                </td>
+                                <td>
+                                    <a href="{% append_to_get seller_id=seller.pk %}" class="btn btn-info btn-xs">
+                                        Details
+                                    </a>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    </table>
+                {% else %}
+                    <br/>
+                    <p>Detailed report for seller: {{ seller.get_full_name }} ({{ seller.email }})</p>
+                    <table class="table table-bordered">
+                        <tr>
+                            <th>Ticket No.</th>
+                            <th>Total Amount</th>
+                            <th>Bets</th>
+                            <th>Numbers</th>
+                        </tr>
+                        {% for object in object_list %}
+                            <tr>
+                                <td>{{ object.number }}</td>
+                                <td>${{ object.total_amount|floatformat:2 }}</td>
+                                <td>
+                                    {% for play in object.ticket_plays.all %}
+                                        <p>${{ play.amount|floatformat:2 }}</p>
+                                    {% endfor %}
+                                </td>
+                                <td>
+                                    {% for play in object.ticket_plays.all %}
+                                        <p>{{ play.number }}</p>
+                                    {% endfor %}
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    </table>
+                    <a href="javascript:history.back();" class="btn btn-default">Back</a>
+                {% endif %}
+                <hr>
+                <div class="alert alert-info">
+                    Total amount is <strong>$ {{ amount|floatformat:2 }}</strong>
+                </div>
+            {% else %}
+                <div class="alert alert-info">
+                    No sales for chosen date.
+                </div>
+            {% endif %}
+        {% else %}
+            <div class="alert alert-info">
+                Please select date for report.
+            </div>
+        {% endif %}
+    </div>
+{% endblock %}

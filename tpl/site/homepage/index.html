@@ -1,0 +1,163 @@
+{% extends "site/base/index.html" %}
+
+{% load static %}
+
+{% block title %}Home{% endblock %}
+
+{% block js %}
+    {{ block.super }}
+    <script type="text/javascript" src="{% static 'site/js/app/homepage/index.js' %}"></script>
+{% endblock %}
+
+{% block content %}
+    <div class="lottery-calc-wrapper">
+        {% if lotteries %}
+            <table class="lottery-summary">
+                <tr>
+                    <td><span>POS:</span></td>
+                    <td colspan="2"><span style="font-size: 11px; line-height: 20px;">{% now "Y-m-d H:i" %}</span></td>
+                    <td><span>Ticket: {{ current_ticket }}</span></td>
+                </tr>
+                <tr>
+                    <td>
+                        <span>Lotteries:</span>
+                    </td>
+                    <td colspan="3">
+                        <select class="form-control selectized" id="id-lottery-select" required="required"
+                                multiple="multiple">
+                            <option value="">Select Lottery</option>
+                            {% for lottery in lotteries %}
+                                <option value="{{ lottery.pk }}">
+                                    {{ lottery.name }}
+                                </option>
+                            {% endfor %}
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <span>Play</span>
+                    </td>
+                    <td colspan="2">
+                        <input type="text" class="form-control" placeholder="Input Number" readonly="readonly"
+                               id="id-numbers-input"/>
+                    </td>
+                    <td>
+                        <input type="text" class="form-control" placeholder="Amount" readonly="readonly"
+                               id="id-amount-input"/>
+                    </td>
+                </tr>
+            </table>
+
+            <table class="lottery-calc">
+                <tr>
+                    <td>
+                        <a href="#" class="number-input">1</a>
+                    </td>
+                    <td>
+                        <a href="#" class="number-input">2</a>
+                    </td>
+                    <td>
+                        <a href="#" class="number-input">3</a>
+                    </td>
+                    <td rowspan="5">
+                        <a href="#" style="height: 306px; padding-top:135px;" class="button-enter">
+                            Enter
+                        </a>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <a href="#" class="number-input">4</a>
+                    </td>
+                    <td>
+                        <a href="#" class="number-input">5</a>
+                    </td>
+                    <td>
+                        <a href="#" class="number-input">6</a>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <a href="#" class="number-input">7</a>
+                    </td>
+                    <td>
+                        <a href="#" class="number-input">8</a>
+                    </td>
+                    <td>
+                        <a href="#" class="number-input">9</a>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <a href="#" class="button-reset">CE</a>
+                    </td>
+                    <td>
+                        <a href="#" class="number-input">0</a>
+                    </td>
+                    <td>
+                        <a href="#" class="button-del">DEL</a>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <a href="#" class="button-auto">AUTO</a>
+                    </td>
+                    <td>
+                        <a href="#" class="button-prev">PREV</a>
+                    </td>
+                    <td>
+                        <a href="#" class="button-next">NEXT</a>
+                    </td>
+                </tr>
+            </table>
+            <div class="row ticket-summary">
+                <div class="col-xs-3 summary">
+                    <div class="inner">
+                        Plays
+                    </div>
+                </div>
+                <div class="col-xs-3 summary">
+                    <div class="inner" id="id-plays-count">
+                        {{ overall_plays_count }}
+                    </div>
+                </div>
+                <div class="col-xs-3 summary">
+                    <div class="inner">
+                        Total
+                    </div>
+                </div>
+                <div class="col-xs-3 summary">
+                    <div class="inner">
+                        $ <span id="id-overall-amount">{{ overall_amount }}</span>.00
+                    </div>
+                </div>
+            </div>
+
+            <table class="bottom-controls">
+                <tr>
+                    <td>
+                        <a href="{% url 'ticket:current_ticket' %}" class="btn btn-block btn-info btn-lg">
+                            Show Ticket
+                        </a>
+                    </td>
+                    <td>
+                        <a href="#" class="btn btn-block btn-info btn-lg button-undo">
+                            Undo
+                        </a>
+                    </td>
+                    <td>
+                        <a href="#" class="btn btn-block btn-info btn-lg button-clear">
+                            Clear
+                        </a>
+                    </td>
+                </tr>
+            </table>
+        {% else %}
+            <div class="alert alert-info">
+                <strong>Sorry, there are no active lotteries at the moment.</strong>
+            </div>
+        {% endif %}
+    </div>
+    <input id="id-current-play" value="{{ current_play }}" type="hidden"/>
+{% endblock %}

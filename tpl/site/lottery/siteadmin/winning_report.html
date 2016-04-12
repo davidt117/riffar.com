@@ -1,0 +1,134 @@
+{% extends "site/base/index.html" %}
+
+{% load static widget_tweaks %}
+
+{% block title %}Winning Report: {{ object.date_created|date:"m/d/Y H:i" }}{% endblock %}
+
+{% block inline_js %}
+    <script>
+        $(function () {
+            var toggleDetails = $('.btn-toggle-details'),
+                    toggleSummary = $('.btn-toggle-summary');
+            toggleDetails.on('click', function (e) {
+                e.preventDefault();
+                $('.summary-report').hide();
+                $('.detail-report').show();
+            });
+
+            toggleSummary.on('click', function (e) {
+                e.preventDefault();
+                $('.summary-report').show();
+                $('.detail-report').hide();
+            });
+        });
+    </script>
+{% endblock %}
+
+{% block content %}
+    <div class="ticket-data-wrapper">
+        <div class="page-header">
+            <h3>
+                {{ object.lottery }}
+                <small>Winning Report: {{ object.date_of_report|date:"m/d/Y" }}</small>
+            </h3>
+        </div>
+
+        <div class="summary-report">
+            <table class="table">
+                <tr>
+                    <th style="width: 50%" class="text-right">Total sold</th>
+                    <td>{{ total_sold|floatformat:2 }}</td>
+                </tr>
+                <tr>
+                    <th style="width: 50%" class="text-right">Commissions</th>
+                    <td>{{ total_commissions|floatformat:2 }}</td>
+                </tr>
+                <tr>
+                    <th style="width: 50%" class="text-right">Won</th>
+                    <td>{{ total_won|floatformat:2 }}</td>
+                </tr>
+                <tr>
+                    <th style="width: 50%" class="text-right">Net {{ object.lottery }}</th>
+                    <td>{{ total_net|floatformat:2 }}</td>
+                </tr>
+            </table>
+
+            <a href="#" class="btn btn-default btn-block btn-toggle-details">
+                Show Details
+            </a>
+        </div>
+
+        <div class="detail-report" style="display: none">
+            <table class="table">
+                <tr>
+                    <th></th>
+                    <th>Number</th>
+                    <th>Amount</th>
+                </tr>
+                <tr>
+                    <th class="text-right">Total sold</th>
+                    <td></td>
+                    <td>{{ total_sold|floatformat:2 }}</td>
+                </tr>
+                {% for commission in seller_commissions.items %}
+                    <tr>
+                        <th style="width: 50%" class="text-right">Comm. {{ commission.0 }}</th>
+                        <td></td>
+                        <td>-{{ commission.1|floatformat:2 }}</td>
+                    </tr>
+                {% endfor %}
+                {% for amount in win_amounts.items %}
+                    {% if amount.0 %}
+                        <tr>
+                            <th style="width: 50%" class="text-right">Won {{ amount.0 }}</th>
+                            <td>{{ amount.1.numbers|join:', ' }}</td>
+                            <td>-{{ amount.1.amount|floatformat:2 }}</td>
+                        </tr>
+                    {% endif %}
+                {% endfor %}
+                <tr>
+                    <th class="text-right">Net {{ object.lottery }}</th>
+                    <td></td>
+                    <td>{{ total_net|floatformat:2 }}</td>
+                </tr>
+            </table>
+            <a href="#" class="btn btn-default btn-block btn-toggle-summary">
+                Show Summary
+            </a>
+        </div>
+
+        {% comment %}
+        {% if report %}
+            <div class="reports">
+                {% for r in report %}
+                    <div class="report">
+                        <p>Place: {{ r.place }}</p>
+
+                        <p>Seller: {{ r.seller.get_full_name }} ({{ r.seller.email }})</p>
+
+                        <p>Commission: {{ r.commission }}%</p>
+
+                        <p>Number: {{ r.number }}</p>
+
+                        <p>Bet amount: ${{ r.amount|floatformat:2 }}</p>
+
+                        <p>Payment amount: ${{ r.payment_amount|floatformat:2 }}</p>
+
+                        <p>Total amount without commission: ${{ r.total_amount_wo_commission|floatformat:2 }}</p>
+
+                        <p>Total amount with commission: ${{ r.total_amount_w_commission|floatformat:2 }}</p>
+                    </div>
+                {% endfor %}
+            </div>
+        {% else %}
+            <div class="alert alert-info">
+                Nobody wins.
+            </div>
+        {% endif %}
+        {% endcomment %}
+        <br/>
+        <a href="javascript:history.back()" class="btn btn-default btn-block">
+            Back
+        </a>
+    </div>
+{% endblock %}

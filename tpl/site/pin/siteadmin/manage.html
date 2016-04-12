@@ -1,0 +1,45 @@
+{% extends "site/base/index.html" %}
+
+{% load static widget_tweaks %}
+
+{% block title %}Manage PINs{% endblock %}
+
+{% block content %}
+    <div class="ticket-data-wrapper">
+        <div class="page-header">
+            <h3>Manage seller PINs</h3>
+        </div>
+        {% if object_list %}
+            <table class="table table-bordered">
+                <tr>
+                    <th>PIN</th>
+                    <th>Seller</th>
+                    <th class="text-center">State</th>
+                </tr>
+                {% for object in object_list %}
+                    <tr>
+                        <td>{{ object.pin }}</td>
+                        <td>
+                            {% if object.seller %}
+                                {{ object.seller.get_full_name }}
+                            {% else %}
+                                &mdash;
+                            {% endif %}
+                        </td>
+                        <td class="text-center">
+                            {% if object.is_active %}
+                                <span class="label label-success">Active</span>
+                            {% else %}
+                                <span class="label label-warning">Disabled</span>
+                            {% endif %}
+                        </td>
+                    </tr>
+                {% endfor %}
+            </table>
+        {% else %}
+            <div class="alert alert-info">
+                There are no seller PINs yet.
+            </div>
+        {% endif %}
+    </div>
+{% endblock %}

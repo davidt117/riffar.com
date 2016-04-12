@@ -1,0 +1,23 @@
+{% extends "site/base/index.html" %}
+
+{% load static widget_tweaks %}
+
+{% block title %}Delete stop number{% endblock %}
+
+{% block content %}
+    <div class="ticket-data-wrapper">
+        <div class="page-header">
+            <h3>Delete stop number</h3>
+        </div>
+        <form method="POST">
+            {% csrf_token %}
+            <div class="alert alert-danger">
+                Are you sure that you want to delete this stop number?
+            </div>
+            <hr>
+            <button type="submit" class="btn btn-danger btn-lg btn-block">Delete</button>
+            <a href="{% url 'lottery:lottery_stop_numbers' lottery=object.lottery_id %}"
+               class="btn btn-default btn-lg btn-block">Back to stop numbers</a>
+        </form>
+    </div>
+{% endblock %}

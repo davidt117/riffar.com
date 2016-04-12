@@ -1,0 +1,23 @@
+# PyCharm
+.idea
+
+# Python
+*.pyc
+
+# Virtual environment
+/venv/
+
+# Static files
+/www/static/
+
+# Node
+node_modules
+
+# Celery
+celerybeat_schedule
+
+# Development settings
+conf/dev/project_settings.py
+
+# Data
+www/data

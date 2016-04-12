@@ -1,0 +1,70 @@
+{% extends "site/base/index.html" %}
+
+{% load static %}
+
+{% block title %}View current ticket{% endblock %}
+
+{% block js %}
+    {{ block.super }}
+    <script type="text/javascript" src="{% static 'site/js/app/ticket/index.js' %}"></script>
+{% endblock %}
+
+{% block content %}
+    <div class="ticket-data-wrapper">
+        <div class="alert alert-success text-center">
+            <p>{% now "D M d, Y H:i" %}</p>
+            <hr>
+            <p>Ticket No.: {{ current_ticket }}</p>
+        </div>
+
+        {% for d in ticket_data %}
+            <div class="alert alert-info">
+                <p class="text-center"><strong>{{ d.lottery.name }}</strong></p>
+                <hr>
+                <div class="pull-right">
+                    <strong>$ {{ d.amount|floatformat:2 }}</strong>
+                </div>
+                <p>
+                    {{ d.numbers }}
+                </p>
+            </div>
+        {% endfor %}
+
+        <div class="alert alert-success text-center">
+            <strong>Total amount: $ {{ total_amount|floatformat:2 }}</strong>
+        </div>
+
+        {% if ticket_data %}
+            <form method="POST">
+                {% csrf_token %}
+                <div class="btn-group btn-group-justified hidden-print" role="group">
+                    <div class="btn-group">
+                        <a href="{% url 'homepage' %}" class="btn btn-info text-uppercase btn-lg">
+                            Edit <i class="fa fa-pencil"></i>
+                        </a>
+                    </div>
+                    <div class="btn-group">
+                        <button type="submit" class="btn btn-primary text-uppercase btn-lg save-ticket">
+                            Save <i class="fa fa-check"></i>
+                        </button>
+                        {% comment %}
+                    <a href="#" class="btn btn-primary text-uppercase btn-lg save-ticket">
+                        Save <i class="fa fa-check"></i>
+                    </a>
+                    {% endcomment %}
+                    </div>
+                </div>
+            </form>
+            <hr>
+            <div class="text-center">
+                <p><strong>Seller Signature</strong></p>
+
+                <p><strong>Thank you for buying with us</strong></p>
+            </div>
+        {% else %}
+            <div class="alert alert-warning">
+                There are no plays in this ticket. <a href="{% url 'homepage' %}">Return to lottery</a>.
+            </div>
+        {% endif %}
+    </div>
+{% endblock %}

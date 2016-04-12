@@ -1,0 +1,162 @@
+.lottery-calc-wrapper {
+  width: 485px;
+  margin: 0 auto;
+
+  @media screen and (max-width: 768px) {
+    width: 95%;
+  }
+
+  .lottery-summary {
+    border-collapse: collapse;
+    width: 100%;
+    margin-bottom: 5px;
+
+    td {
+      padding: 2px;
+      span {
+        font-weight: bold;
+        display: block;
+        width: 100%;
+        height: 34px;
+        padding: 4px 6px;
+        color: gray;
+        box-shadow: none;
+        border: 1px solid rgba(39, 70, 220, 0.50);
+        border-radius: 3px;
+        background-color: #c1c1c1;
+        background: rgba(39, 70, 7, 0.90);
+        background: -webkit-linear-gradient(top, #f3f6fb 0%, rgba(180, 205, 234, 0.95) 60%, #f3f6fb 100%);
+        background: -o-linear-gradient(top, #f3f6fb 0%, rgba(180, 205, 234, 0.95) 60%, #f3f6fb 100%);
+        background: -ms-linear-gradient(top, #f3f6fb 0%, rgba(180, 205, 234, 0.95) 60%, #f3f6fb 100%);
+        background: linear-gradient(top, #f3f6fb 0%, rgba(180, 205, 234, 0.95) 60%, #f3f6fb 100%);
+        background: -moz-linear-gradient(top, #f3f6fb 0%, rgba(180, 205, 234, 0.95) 60%, #f3f6fb 100%);
+        background-repeat: no-repeat;
+        .box-sizing(border-box);
+
+        @media only screen
+        and (min-device-width: 320px)
+        and (max-device-height: 480px)
+        and (orientation: portrait) {
+          height: 24px;
+          padding: 0 6px;
+        }
+      }
+
+      input, select {
+        @media only screen
+        and (min-device-width: 320px)
+        and (max-device-height: 480px)
+        and (orientation: portrait) {
+          height: 24px;
+          padding: 0 6px;
+        }
+      }
+    }
+  }
+
+  .lottery-calc {
+    width: 100%;
+
+    td {
+      padding: 2px;
+      position: relative;
+      a {
+        text-align: center;
+        font-size: 16px;
+        display: block;
+        height: 100%;
+        width: 100%;
+        padding: 17px 6px;
+        color: rgba(89, 70, 220, 0.90);
+        box-shadow: 1px 1px 1px #A5BAC6;
+        border: 1px solid rgba(39, 70, 220, 0.50);
+        border-radius: 3px;
+        background-color: #c1c1c1;
+        background-image: linear-gradient(top, rgba(39, 70, 7, 0.90) 0%, rgba(39, 70, 7, 0.50) 40%, rgba(39, 70, 7, 0) 100%);
+        background: rgba(39, 70, 7, 0.90);
+        background: -webkit-linear-gradient(top, #f2f6fa 0%, #f3f6fb 40%, rgba(180, 195, 234, 0.95) 100%);
+        background: -o-linear-gradient(top, #f2f6fa 0%, #f3f6fb 40%, rgba(180, 195, 234, 0.95) 100%);
+        background: -ms-linear-gradient(top, #f2f6fa 0%, #f3f6fb 40%, rgba(180, 195, 234, 0.95) 100%);
+        background: linear-gradient(top, #f2f6fa 0%, #f3f6fb 40%, rgba(180, 195, 234, 0.95) 100%);
+        background: -moz-linear-gradient(top, #f2f6fa 0%, #f3f6fb 40%, rgba(180, 195, 234, 0.95) 100%);
+        background-repeat: no-repeat;
+        .box-sizing(border-box);
+
+        @media only screen
+        and (min-device-width: 320px)
+        and (max-device-height: 480px)
+        and (orientation: portrait) {
+          font-size: 14px;
+          padding: 13px 6px;
+        }
+
+        &:hover {
+          text-decoration: none;
+          color: rgba(89, 70, 220, 0.90);
+          box-shadow: 1px 1px 3px #A5BAC6;
+          border: 1px solid rgba(39, 70, 220, 0.50);
+          border-radius: 3px;
+          background-color: orenge;
+          background-image: linear-gradient(top, rgba(39, 70, 7, 0.90) 0%, rgba(39, 70, 7, 0.50) 40%, rgba(39, 70, 7, 0) 100%);
+          background: rgba(39, 70, 7, 0.90);
+          background: -webkit-linear-gradient(top, #f3f6fb 0%, rgba(180, 195, 234, 0.95) 100%);
+          background: -o-linear-gradient(top, #f3f6fb 0%, rgba(180, 195, 234, 0.95) 100%);
+          background: -ms-linear-gradient(top, #f3f6fb 0%, rgba(180, 195, 234, 0.95) 100%);
+          background: linear-gradient(top, #f3f6fb 0%, rgba(180, 195, 234, 0.95) 100%);
+          background: -moz-linear-gradient(top, #f3f6fb 0%, rgba(180, 195, 234, 0.95) 100%);
+          background-repeat: no-repeat;
+        }
+      }
+    }
+  }
+
+  .ticket-summary {
+    width: 100%;
+    margin: 2px 0;
+    .summary {
+      padding: 2px;
+      .inner {
+        padding: 2px 5px;
+        background: #235262;
+        color: #fff;
+      }
+    }
+  }
+
+  .bottom-controls {
+    width: 100%;
+    td {
+      width: 33.33333%;
+      padding: 2px;
+    }
+  }
+}
+
+.button-enter {
+  @media only screen
+  and (min-device-width: 320px)
+  and (max-device-height: 480px)
+  and (orientation: portrait) {
+    height: 256px !important;
+    padding-top: 113px !important;
+  }
+}
+
+.button-fixed {
+  @media only screen
+  and (min-device-width: 320px)
+  and (max-device-height: 480px)
+  and (orientation: portrait) {
+    height: 88px !important;
+    padding-top: 28px !important;
+  }
+}
+
+.btn-lg {
+  @media only screen
+  and (min-device-width: 320px)
+  and (max-device-height: 480px)
+  and (orientation: portrait) {
+    padding: 2px 16px;
+  }
+}

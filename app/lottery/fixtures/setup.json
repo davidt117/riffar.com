@@ -1,0 +1,15 @@
+[
+    {
+        "fields": {
+            "close_time": "18:00:00",
+            "open_time": "10:00:00",
+            "max_amount": 1000,
+            "max_number": 1000,
+            "min_amount": 0,
+            "min_number": 0,
+            "name": "Test Lottery"
+        },
+        "model": "lottery.lottery",
+        "pk": 1
+    }
+]

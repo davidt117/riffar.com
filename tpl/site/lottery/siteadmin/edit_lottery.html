@@ -1,0 +1,19 @@
+{% extends "site/base/index.html" %}
+
+{% load static widget_tweaks %}
+
+{% block title %}Edit Lottery{% endblock %}
+
+{% block content %}
+    <div class="ticket-data-wrapper">
+        <div class="page-header">
+            <h3>Edit Lottery</h3>
+        </div>
+        <form method="POST">
+            {% csrf_token %}
+            {% include "site/forms/vertical.html" %}
+            <hr>
+            <button type="submit" class="btn btn-primary btn-lg btn-block">Edit Lottery</button>
+        </form>
+    </div>
+{% endblock %}

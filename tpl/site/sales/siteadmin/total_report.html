@@ -1,0 +1,57 @@
+{% extends "site/base/index.html" %}
+
+{% load static widget_tweaks %}
+
+{% block title %}Total Sales{% endblock %}
+
+{% block content %}
+    <div class="ticket-data-wrapper">
+        <form method="GET" class="form-inline">
+            <div class="form-group">
+                {{ form.date_from|add_class:"form-control date"|attr:"placeholder:From Date"|attr:"autocomplete:off" }}
+            </div>
+            <div class="form-group">
+                {{ form.date_to|add_class:"form-control date"|attr:"placeholder:To Date"|attr:"autocomplete:off" }}
+            </div>
+            <div class="form-group">
+                {{ form.seller|add_class:"form-control selectized" }}
+            </div>
+            <input type="submit" name="get_report" value="Get Report" class="btn btn-primary btn-block"/>
+        </form>
+        <hr>
+        {% if show_results %}
+            {% if object_list %}
+                <br/>
+                <table class="table table-bordered">
+                    <tr>
+                        <th>Seller</th>
+                        <th>Total sales amount</th>
+                    </tr>
+                    {% for object in object_list %}
+                        <tr>
+                            <td>
+                                {{ object.user.get_full_name }} ({{ object.user.email }})
+                            </td>
+                            <td>
+                                ${{ object.total_amount|floatformat:2 }}
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </table>
+
+                <hr>
+                <div class="alert alert-info">
+                    Total amount is <strong>$ {{ amount|floatformat:2 }}</strong>
+                </div>
+            {% else %}
+                <div class="alert alert-info">
+                    No sales for chosen date.
+                </div>
+            {% endif %}
+        {% else %}
+            <div class="alert alert-info">
+                Please select date for report.
+            </div>
+        {% endif %}
+    </div>
+{% endblock %}

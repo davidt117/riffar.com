@@ -1,0 +1,58 @@
+{% extends "site/base/index.html" %}
+
+{% load static widget_tweaks %}
+
+{% block title %}Manage Lotteries{% endblock %}
+
+{% block content %}
+    <div class="ticket-data-wrapper">
+        <div class="page-header">
+            <h3>Manage Lotteries</h3>
+        </div>
+
+        {% if messages %}
+            {% for message in messages %}
+                <div class="alert alert-{% if message.tags %}{{ message.tags|lower }}{% endif %}">
+                    {{ message }}
+                </div>
+            {% endfor %}
+        {% endif %}
+        <div class="alert alert-warning h6">
+            <p><i class="fa fa-pencil"></i> &mdash; Edit lottery</p>
+
+            <p><i class="fa fa-list-alt"></i> &mdash; Lottery stop numbers</p>
+        </div>
+        <table class="table table-bordered" style="font-size: 11px;">
+            <tr>
+                <th>Lott.</th>
+                <th>Numb.</th>
+                <th>Amount</th>
+                <th>Time</th>
+                <th></th>
+            </tr>
+            {% for object in object_list %}
+                <tr>
+                    <td>
+                        {{ object.name }}
+                        {% if not object.is_available %}<span class="label label-warning">Disabled</span>{% endif %}
+                    </td>
+                    <td>{{ object.min_number }}-{{ object.max_number }}</td>
+                    <td>{{ object.min_amount }}-{{ object.max_amount }}</td>
+                    <td>{{ object.open_time|date:"H:i" }}-{{ object.close_time|date:"H:i" }}</td>
+                    <td class="text-center">
+                        <div style="white-space: nowrap">
+                            <a href="{% url 'lottery:lottery_edit' pk=object.pk %}" class="btn btn-xs btn-info tt"
+                               data-title="Edit Lottery">
+                                <i class="fa fa-pencil"></i>
+                            </a>&nbsp;
+                            <a href="{% url 'lottery:lottery_stop_numbers' lottery=object.pk %}"
+                               class="btn btn-xs btn-warning tt" data-title="Lottery Stop Numbers">
+                                <i class="fa fa-list-alt"></i>
+                            </a>
+                        </div>
+                    </td>
+                </tr>
+            {% endfor %}
+        </table>
+    </div>
+{% endblock %}

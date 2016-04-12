@@ -1,0 +1,40 @@
+{% extends "site/base/index.html" %}
+
+{% load static %}
+
+{% block title %}Ticket Details{% endblock %}
+
+{% block content %}
+    <div class="ticket-data-wrapper">
+        <div class="alert alert-success text-center">
+            <p>{{ object.date_created|date:"D M d, Y H:i" }}</p>
+            <hr>
+            <p>Ticket No.: {{ object.number }}</p>
+        </div>
+
+        {% for d in ticket.ticket_plays.all %}
+            <div class="alert alert-info">
+                <p class="text-center"><strong>{{ d.lottery.name }}</strong></p>
+                <hr>
+                <div class="pull-right">
+                    <strong>$ {{ d.amount|floatformat:2 }}</strong>
+                </div>
+                <p>
+                    {{ d.number }}
+                </p>
+            </div>
+        {% endfor %}
+
+        <div class="alert alert-success text-center">
+            <strong>Total amount: $ {{ object.total_amount|floatformat:2 }}</strong>
+        </div>
+        <hr>
+        <div class="text-center">
+            <p><strong>Seller Signature</strong></p>
+
+            <p><strong>Thank you for buying with us</strong></p>
+        </div>
+        <br/>
+        <a href="{% url 'ticket:index' %}" class="btn btn-primary btn-lg btn-block">Back to Tickets</a>
+    </div>
+{% endblock %}

@@ -1,0 +1,95 @@
+<ul class="nav navbar-nav navbar-right">
+    {% if request.user.is_authenticated %}
+        <li class="nav-orange">
+            <a href="{% url 'homepage' %}">Home</a>
+        </li>
+        <li class="dropdown nav-violet">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
+               aria-haspopup="true" aria-expanded="false">
+                Pins <span class="caret"></span>
+            </a>
+            <ul class="dropdown-menu">
+                <li>
+                    <a href="{% url 'homepage' %}">
+                        Manage seller PINs
+                    </a>
+                </li>
+                <li>
+                    <a href="{% url 'pins:pin_create' %}">
+                        Create seller PIN
+                    </a>
+                </li>
+            </ul>
+        </li>
+        <li class="dropdown nav-blue">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
+               aria-haspopup="true" aria-expanded="false">
+                Lottery <span class="caret"></span>
+            </a>
+            <ul class="dropdown-menu">
+                <li>
+                    <a href="{% url 'lottery:lottery_manage' %}">Manage lotteries</a>
+                </li>
+                <li>
+                    <a href="{% url 'lottery:lottery_create' %}">Create lottery</a>
+                </li>
+                <li>
+                    <a href="{% url 'lottery:stop_number_create' %}">Create stop numbers</a>
+                </li>
+                <li>
+                    <a href="{% url 'lottery:lottery_winning_numbers_lottery_list' %}">Winning numbers</a>
+                </li>
+            </ul>
+        </li>
+        <li class="dropdown nav-gray">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
+               aria-haspopup="true" aria-expanded="false">
+                Sales <span class="caret"></span>
+            </a>
+            <ul class="dropdown-menu">
+                <li>
+                    <a href="{% url 'sales:report_total' %}">Total</a>
+                </li>
+                <li>
+                    <a href="{% url 'sales:report_detail' %}">Detail</a>
+                </li>
+                <li>
+                    <a href="{% url 'sales:report_earnings' %}">Earnings Report</a>
+                </li>
+            </ul>
+        </li>
+        <li class="dropdown nav-violet">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
+               aria-haspopup="true" aria-expanded="false">
+                Cost Configuration <span class="caret"></span>
+            </a>
+            <ul class="dropdown-menu">
+                <li>
+                    <a href="{% url 'cost:sellers_commission' %}">
+                        Sellers Percentage Commission
+                    </a>
+                </li>
+            </ul>
+        </li>
+        <li class="dropdown nav-blue">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
+               aria-haspopup="true" aria-expanded="false">
+                Settings <span class="caret"></span>
+            </a>
+            <ul class="dropdown-menu">
+                <li>
+                    <a href="{% url 'change_password' %}">Change Password</a>
+                </li>
+                <li>
+                    <a href="{% url 'logout' %}">Logout</a>
+                </li>
+            </ul>
+        </li>
+    {% else %}
+        <li>
+            <a href="{% url 'login' %}">
+                Login
+            </a>
+        </li>
+    {% endif %}
+</ul>

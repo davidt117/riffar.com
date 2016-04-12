@@ -1,0 +1,37 @@
+{% extends "site/base/index.html" %}
+
+{% load static widget_tweaks %}
+
+{% block title %}Sellers Commission{% endblock %}
+
+{% block content %}
+    <div class="ticket-data-wrapper">
+        <div class="page-header">
+            <h3>Sellers Commission</h3>
+        </div>
+        {% if object_list %}
+            <table class="table table-bordered h6">
+                <tr>
+                    <th>Seller</th>
+                    <th>Commission</th>
+                    <th class="text-center"></th>
+                </tr>
+                {% for object in object_list %}
+                    <tr>
+                        <td>{{ object.get_full_name }}</td>
+                        <td>{{ object.commission_percent }}%</td>
+                        <td class="text-center">
+                            <a href="{% url 'cost:sellers_commission' pk=object.pk %}" class="btn btn-xs btn-info">
+                                Change
+                            </a>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </table>
+        {% else %}
+            <div class="alert alert-info">
+                You don't have sellers yet.
+            </div>
+        {% endif %}
+    </div>
+{% endblock %}

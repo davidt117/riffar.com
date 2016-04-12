@@ -1,0 +1,13 @@
+[
+    {
+        "fields": {
+            "last_name": "Admin",
+            "first_name": "Super",
+            "password": "pbkdf2_sha256$20000$jVi0hFnPjAVX$B/fr0ssBd9j5RZlc5QiplSlmkgEUPiXaiXwMxkqxR+s=",
+            "last_login": null,
+            "email": "superadmin@riffar.com"
+        },
+        "model": "superadmin.superadmin",
+        "pk": 1
+    }
+]

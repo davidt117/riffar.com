@@ -1,0 +1,20 @@
+{% extends "site/base/blank.html" %}
+
+{% load widget_tweaks %}
+
+{% block title %}Sign Up{% endblock %}
+
+{% block blank_content %}
+    <div class="auth-window">
+        <div class="auth-window-header">
+            Riffar
+        </div>
+        <div class="auth-window-content">
+            <div class="alert alert-success">
+                <strong>Thank you for registration!</strong> Now you can
+                <a href="{% url 'login' %}">login</a> using your email and password.
+            </div>
+            <a class="btn btn-primary btn-block btn-lg text-uppercase" href="{% url 'login' %}">Login</a>
+        </div>
+    </div>
+{% endblock %}

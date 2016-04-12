@@ -1,0 +1,43 @@
+{% extends "site/base/index.html" %}
+
+{% load static widget_tweaks %}
+
+{% block title %}Create a PIN{% endblock %}
+
+{% block inline_js %}
+    <script>
+        function makePin() {
+            var text = "";
+            var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+
+            for (var i = 0; i < 8; i++) {
+                text += possible.charAt(Math.floor(Math.random() * possible.length));
+            }
+
+            return text.trim();
+        }
+
+        $(function () {
+            var generatePin = $('.generate-pin');
+            generatePin.on('click', function (e) {
+                e.preventDefault();
+                var pin = makePin();
+                $('#id_pin').val(pin);
+            });
+        });
+    </script>
+{% endblock %}
+
+{% block content %}
+    <div class="ticket-data-wrapper">
+        <div class="page-header">
+            <h3>Create a PIN</h3>
+        </div>
+        <form method="POST">
+            {% csrf_token %}
+            {% include "site/forms/vertical.html" %}
+            <a href="#" class="generate-pin btn btn-success btn-lg btn-block">Generate PIN</a>
+            <button type="submit" class="btn btn-primary btn-lg btn-block">Activate PIN</button>
+        </form>
+    </div>
+{% endblock %}

@@ -1,0 +1,75 @@
+{% extends "site/base/index.html" %}
+
+{% load static widget_tweaks %}
+
+{% block title %}Manage seller PINs{% endblock %}
+
+{% block inline_js %}
+    <script>
+        $(function () {
+            var changePinState = $('.change-pin-state');
+            changePinState.on('click', function (e) {
+                e.preventDefault();
+                var action = $(this).attr('data-action'),
+                        pk = $(this).attr('data-pk');
+                $.ajax({
+                    url: "/pins/change-state/",
+                    type: "POST",
+                    dataType: 'json',
+                    data: {
+                        pk: pk,
+                        action: action
+                    }
+                }).done(function (response) {
+                            if (response.result == 'success') {
+                                window.location.reload();
+                            }
+                        });
+            });
+        });
+    </script>
+{% endblock %}
+
+{% block content %}
+    <div class="ticket-data-wrapper">
+        <div class="page-header">
+            <h3>Manage seller PINs</h3>
+        </div>
+        {% if object_list %}
+            <table class="table table-bordered">
+                <tr>
+                    <th>PIN</th>
+                    <th>Requested By</th>
+                    <th class="text-center">State</th>
+                    <th></th>
+                </tr>
+                {% for object in object_list %}
+                    <tr>
+                        <td>{{ object.pin }}</td>
+                        <td>{{ object.created_by.get_full_name }}</td>
+                        <td class="text-center">
+                            {% if object.is_active %}
+                                <span class="label label-success">Active</span>
+                            {% else %}
+                                <span class="label label-warning">Disabled</span>
+                            {% endif %}
+                        </td>
+                        <td class="text-center">
+                            {% if object.is_active %}
+                                <a href="#" data-pk="{{ object.pk }}" data-action="deactivate"
+                                   class="change-pin-state btn btn-xs btn-danger">Deactivate</a>
+                            {% else %}
+                                <a href="#" data-pk="{{ object.pk }}" data-action="activate"
+                                   class="change-pin-state btn btn-xs btn-success">Activate</a>
+                            {% endif %}
+                        </td>
+                    </tr>
+                {% endfor %}
+            </table>
+        {% else %}
+            <div class="alert alert-info">
+                There are no seller PINs yet.
+            </div>
+        {% endif %}
+    </div>
+{% endblock %}

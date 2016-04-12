@@ -1,0 +1,47 @@
+{% extends "site/base/index.html" %}
+
+{% load static widget_tweaks %}
+
+{% block title %}Lottery stop numbers{% endblock %}
+
+{% block content %}
+    <div class="ticket-data-wrapper">
+        <div class="page-header">
+            <h3>Lottery stop numbers</h3>
+        </div>
+
+        {% if messages %}
+            {% for message in messages %}
+                <div class="alert alert-{% if message.tags %}{{ message.tags|lower }}{% endif %}">
+                    {{ message }}
+                </div>
+            {% endfor %}
+        {% endif %}
+
+        {% if object_list %}
+            <table class="table table-bordered h6">
+                <tr>
+                    <th>Lottery</th>
+                    <th>Stop Number</th>
+                    <th></th>
+                </tr>
+                {% for object in object_list %}
+                    <tr>
+                        <td>
+                            {{ object.lottery.name }}
+                        </td>
+                        <td>{{ object.number }}</td>
+                        <td class="text-center">
+                            <a href="{% url 'lottery:stop_number_delete' pk=object.pk %}" class="btn btn-xs btn-danger">
+                                Delete <i class="fa fa-trash-o"></i>
+                            </a>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </table>
+        {% else %}
+            <div class="alert alert-info">There are no stop numbers for this lottery.</div>
+        {% endif %}
+        <a href="{% url 'lottery:lottery_manage' %}" class="btn btn-default btn-lg btn-block">Back to lotteries</a>
+    </div>
+{% endblock %}

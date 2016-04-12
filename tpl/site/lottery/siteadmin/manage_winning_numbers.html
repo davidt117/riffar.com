@@ -1,0 +1,68 @@
+{% extends "site/base/index.html" %}
+
+{% load static widget_tweaks %}
+
+{% block title %}Winning Numbers: {{ object.name }}{% endblock %}
+
+{% block content %}
+    <div class="ticket-data-wrapper">
+        <div class="page-header">
+            <h3>Winning Numbers: {{ object.name }}</h3>
+        </div>
+        {% if messages %}
+            {% for message in messages %}
+                <div class="alert alert-{% if message.tags %}{{ message.tags|lower }}{% endif %}">
+                    {{ message }}
+                </div>
+            {% endfor %}
+        {% endif %}
+        <div class="alert alert-info">
+            Winning numbers must be comma-separated 2-digits numbers.
+        </div>
+        <form method="POST">
+            {% csrf_token %}
+            <fieldset>
+                <legend>Date of report</legend>
+                <div class="form-group">
+                    <label id="{{ form.date_of_report.id_for_label }}">
+                        {{ form.date_of_report.label }}
+                    </label>
+                    {{ form.date_of_report|add_class:"form-control date" }}
+                    {{ form.date_of_report.errors }}
+                </div>
+            </fieldset>
+            <fieldset>
+                <legend>First place</legend>
+                <div class="form-group">
+                    <label id="{{ form.winning_numbers_first_place.id_for_label }}">
+                        {{ form.winning_numbers_first_place.label }}
+                    </label>
+                    {{ form.winning_numbers_first_place|add_class:"form-control" }}
+                    {{ form.winning_numbers_first_place.errors }}
+                </div>
+            </fieldset>
+            <fieldset>
+                <legend>Second place</legend>
+                <div class="form-group">
+                    <label id="{{ form.winning_numbers_second_place.id_for_label }}">
+                        {{ form.winning_numbers_second_place.label }}
+                    </label>
+                    {{ form.winning_numbers_second_place|add_class:"form-control" }}
+                    {{ form.winning_numbers_second_place.errors }}
+                </div>
+            </fieldset>
+            <fieldset>
+                <legend>Third place</legend>
+                <div class="form-group">
+                    <label id="{{ form.winning_numbers_third_place.id_for_label }}">
+                        {{ form.winning_numbers_third_place.label }}
+                    </label>
+                    {{ form.winning_numbers_third_place|add_class:"form-control" }}
+                    {{ form.winning_numbers_third_place.errors }}
+                </div>
+            </fieldset>
+            <hr>
+            <button type="submit" class="btn btn-primary btn-lg btn-block">Save Numbers</button>
+        </form>
+    </div>
+{% endblock %}

@@ -1,0 +1,48 @@
+.auth-window {
+  width: 450px;
+  margin: 0 auto 100px auto;
+  border: 2px solid #000;
+  border-radius: 10px;
+  position: relative;
+
+  @media screen and (max-width: 768px) {
+    width: 90%;
+  }
+
+  .auth-window-header {
+    background: #967ade;
+    padding: 15px;
+    text-align: center;
+    font-size: 32px;
+    color: #000;
+    border-radius: 6px 6px 0 0;
+    font-weight: bold;
+  }
+
+  .auth-window-content {
+    padding: 30px;
+    @media screen and (max-width: 768px) {
+      padding: 15px;
+    }
+  }
+
+  .app-link {
+    position: relative;
+    top: -26px;
+    text-align: center;
+
+    a {
+      display: inline-block;
+      padding: 12px 20px;
+      font-size: 18px;
+      background: #5cb85c;
+      color: #fff;
+      border-radius: 10px;
+
+      &:hover {
+        text-decoration: none;
+        background: darken(#5cb85c, 10%);
+      }
+    }
+  }
+}

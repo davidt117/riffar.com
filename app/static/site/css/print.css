@@ -1,0 +1,18 @@
+.ticket-data-wrapper {
+    width: 290px !important;
+    margin: 0 auto !important;
+}
+
+@page {
+    size: auto;   /* auto is the initial value */
+    margin: 0mm;  /* this affects the margin in the printer settings */
+}
+
+.well, .alert {
+    border: 0 !important;
+    padding: 0 !important;
+}
+
+body, .alert, .well, p {
+    font-size: 10pt !important;
+}
